@@ -48,3 +48,7 @@ data/hardware-v2/review/cosh_signal_integrity/source_sheets/
 # 原始论文 PDF
 资料/*.pdf
 资料/*.PDF
+
+# Generated evaluation reports
+evals/reports/
+evals/hardware-v2/reports/
