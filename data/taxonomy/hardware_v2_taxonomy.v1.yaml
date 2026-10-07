@@ -1,0 +1,17 @@
+schema_version: 1
+taxonomy_version: hardware-v2-taxonomy-v1
+domains:
+  memory:
+    topics: [ddr2, ddr3, ddr3l, ddr4, ddr5, lpddr3, lpddr4, lpddr4x, lpddr5, lpddr5x, sdram_standard, ddr_design, ddr_routing, ddr_power]
+  high_speed_interface:
+    topics: [usb, sata, pcie, hdmi, sgmii, csi, high_speed_layout]
+  power_management:
+    topics: [ldo, power_supply, power_sequencing, power_integrity, ddr_power]
+  electrical_safety:
+    topics: [creepage_clearance, high_voltage_pcb, insulation, clearance]
+  signal_integrity:
+    topics: [signal_integrity, eye_diagram, jitter, pcie, impedance, termination]
+  hardware_general:
+    topics: [hardware_design, pcb_layout]
+memory_types: [DDR2, DDR3, DDR3L, DDR4, DDR5, LPDDR3, LPDDR4, LPDDR4X, LPDDR5, LPDDR5X]
+interfaces: [usb, sata, pcie, hdmi, sgmii, csi]

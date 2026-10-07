@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ddr-rag"
+version = "0.1.0"
+description = "Local general-hardware engineering-document RAG with domain-isolated retrieval"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "docling>=2.107,<3",
+    "qdrant-client[fastembed]>=1.19,<2",
+    "openai>=2.44,<3",
+    "tiktoken>=0.8,<1",
+    "transformers>=5.12,<6",
+    "pydantic>=2.12,<3",
+    "pydantic-settings>=2.14,<3",
+    "pypdf>=5,<7",
+    "PyYAML>=6.0,<7",
+    "python-dotenv>=1.0,<2",
+    "typer>=0.24,<1",
+    "rich>=14.3,<15",
+]
+
+[project.scripts]
+ddr-rag = "ddr_rag.cli:app"
+
+[project.optional-dependencies]
+local-bge-m3 = [
+    "torch>=2.10,<2.11",
+]
+test = [
+    "pytest>=9.1,<10",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

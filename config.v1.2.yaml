@@ -1,0 +1,77 @@
+knowledge_base:
+  name: ddr_knowledge_v1_2
+  collection_name: ddr_knowledge_v1_2
+
+paths:
+  raw: data/raw
+  catalog: data/catalog/documents.yaml
+  parsed: data/parsed
+  chunks: data/chunks/v1.2/chunks.jsonl
+  index: data/index/v1.2
+  prompts: prompts
+  logs: logs
+  evaluations: evals
+
+parser:
+  engine: docling
+  enable_ocr: false
+  enable_table_structure: true
+  device: cpu
+  num_threads: 4
+  document_timeout_seconds: 1800
+  page_batch_size: 8
+  export_markdown: true
+  export_json: true
+
+chunking:
+  strategy: docling_hybrid
+  max_tokens: 600
+  tokenizer_encoding: cl100k_base
+  merge_peers: true
+  repeat_table_header: true
+
+embedding:
+  provider: local_bge_m3
+  model: BAAI/bge-m3
+  device: cuda:0
+  batch_size: 8
+  max_length: 1024
+  normalize_vectors: true
+  use_fp16: true
+  model_cache: data/models/bge-m3
+  output_subdir: bge-m3
+
+vector_store:
+  provider: qdrant_local
+  path: data/index/v1.2/qdrant
+  distance: cosine
+  batch_size: 64
+
+sparse:
+  provider: bm25_local
+  path: data/index/v1.2/bm25
+  k1: 1.5
+  b: 0.75
+
+retrieval:
+  mode: hybrid
+  dense_candidates: 20
+  sparse_candidates: 20
+  final_top_k: 6
+  rrf_k: 60
+  active_documents_only: true
+
+generation:
+  enabled: true
+  provider: deepseek
+  model: deepseek-flash
+  base_url: https://api.deepseek.com
+  api_key_env: DEEPSEEK_API_KEY
+  reasoning_effort: none
+  max_output_tokens: 1200
+  max_evidence_chunks: 6
+  request_timeout_seconds: 60
+
+logging:
+  save_retrieved_chunks: true
+  save_answers: true

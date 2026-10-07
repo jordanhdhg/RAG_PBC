@@ -1,0 +1,242 @@
+# General hardware RAG V2 source catalog.
+# Raw source files remain under the shared data/raw tree; V2 derived artifacts use data/hardware-v2.
+documents:
+  - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+    title: Rockchip RK3568 Hardware Design Guide
+    revision: V1.2
+    vendor: Rockchip
+    file: data/raw/vendor/rockchip_rk3568_hardware_design_guide_v1.2_cn.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: zh-CN
+    domains: [hardware_general, memory, high_speed_interface, power_management]
+    topics: [hardware_design, ddr3, ddr3l, lpddr3, ddr4, lpddr4, lpddr4x, ddr_design, usb, pcie, hdmi, csi, power_supply]
+    memory_types: [DDR3, DDR3L, LPDDR3, DDR4, LPDDR4, LPDDR4X]
+    applicable_interfaces: [usb, pcie, hdmi, csi]
+    applicable_parts: [RK3568]
+    authority: vendor_design_guide
+    authority_score: 85
+    status: active
+    published_date: 2021-11-07
+    confidentiality: public
+    source_url: https://gitlab.com/firefly-linux/docs-soc_internal-cn/-/raw/rk356x/firefly-5.10/Hardware/Rockchip_RK3568_Hardware_Design_Guide_V1.2_20211107_CN.pdf
+    source_access: public_mirror
+    supersedes: null
+    notes: 原厂内容由 Firefly 公开 GitLab 镜像提供；多领域章节的最终 Chunk 分类由版本化映射覆盖。
+    file_hash: 501aa1c20c6bdc92998e14ecb70a3acc6fc48951d747eb7d829028279bcea61a
+
+  - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+    title: AM62x and AM62Lx DDR Board Design and Layout Guidelines
+    revision: Rev. C / SPRAD06C
+    vendor: Texas Instruments
+    file: data/raw/vendor/ti_am62x_am62lx_ddr_board_design_layout_guidelines_rev_c_202503.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: en
+    domains: [memory]
+    topics: [ddr4, lpddr4, ddr_routing]
+    memory_types: [DDR4, LPDDR4]
+    applicable_interfaces: []
+    applicable_parts: [AM62x, AM62Lx]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: https://www.ti.com/lit/an/sprad06c/sprad06c.pdf
+    source_access: official
+    supersedes: null
+    notes: TI 官方应用报告，文档标注 2025 年 3 月修订；包含 DDR4 与 LPDDR4 的放置、拓扑、布线限制和仿真要求。
+    file_hash: cfb8615c463d79ce2b8b2d7d011b502c8a1f08b4e5d2d1294ae97c62249d7e72
+
+  - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+    title: i.MX 8M Plus Hardware Developer's Guide
+    revision: Rev. 1
+    vendor: NXP
+    file: data/raw/vendor/nxp_imx8m_plus_hardware_developers_guide_rev1_20240326.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: en
+    domains: [hardware_general, memory, high_speed_interface, power_management]
+    topics: [hardware_design, ddr4, lpddr4, ddr_design, usb, power_supply]
+    memory_types: [DDR4, LPDDR4]
+    applicable_interfaces: [usb]
+    applicable_parts: [i.MX 8M Plus]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: 2024-03-26
+    confidentiality: public
+    source_url: https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-processors/229659/1/IMX8MPHDG.pdf
+    source_access: official_community
+    supersedes: null
+    notes: NXP 官方文档；多领域章节的最终 Chunk 分类由版本化映射覆盖。
+    file_hash: a90105ddcb939b2fad2de4b0466803dc7877f177008f816b36fe856597cd582f
+
+  - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+    title: DDR2 SDRAM Specification
+    revision: JESD79-2C
+    vendor: JEDEC
+    file: data/raw/standards/jedec_jesd79-2c_ddr2_sdram_2006.pdf
+    document_type: standard
+    source_format: pdf
+    language: en
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_types: [DDR2]
+    applicable_interfaces: []
+    applicable_parts: []
+    authority: standard
+    authority_score: 100
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: null
+    source_access: local
+    supersedes: null
+    notes: 文档标注 2006 年 5 月；本地原件经阶段 3 哈希一致复制，未臆造具体发布日期或下载来源。
+    file_hash: cd83853088de7fbf6243004e2cf3df75c65ab6128716575cc8e7faf9507e56de
+
+  - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+    title: High-Speed Interface Layout Guidelines
+    revision: Rev. J / SPRAAR7J
+    vendor: Texas Instruments
+    file: data/raw/vendor/ti_spraar7j_high_speed_interface_layout_rev_j.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: en
+    domains: [high_speed_interface]
+    topics: [usb, sata, pcie, hdmi, sgmii, csi, high_speed_layout]
+    memory_types: []
+    applicable_interfaces: [usb, sata, pcie, hdmi, sgmii, csi]
+    applicable_parts: []
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: null
+    source_access: local
+    supersedes: null
+    notes: TI SPRAAR7J Rev. J；聚焦通用高速接口布局，不将 address 中的字符子串误分类为 DDR。
+    file_hash: 4a14e9b00afc174f336386cf0097f3a5e7a6a367840331fbb22070053ec36f41
+
+  - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+    title: LDO 基础知识
+    revision: ZHCY093
+    vendor: Texas Instruments
+    file: data/raw/vendor/ti_zhcy093_ldo_basics_zh.pdf
+    document_type: application_note
+    source_format: pdf
+    language: zh-CN
+    domains: [power_management]
+    topics: [ldo, power_supply]
+    memory_types: []
+    applicable_interfaces: []
+    applicable_parts: []
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: null
+    source_access: local
+    supersedes: null
+    notes: TI 中文应用资料；本地原件经阶段 3 哈希一致复制。
+    file_hash: 39b55c41687309bb1fdf2d1acfe9f72eb082ce2d9aaa353e3480bde1a99039c2
+
+  - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+    title: 高压电气间隙和爬电距离
+    revision: ZHCP238 / 2024 Power Supply Design Seminar Topic 2
+    vendor: Texas Instruments
+    file: data/raw/vendor/ti_zhcp238_creepage_clearance_2024.pdf
+    document_type: technical_whitepaper
+    source_format: pdf
+    language: zh-CN
+    domains: [electrical_safety]
+    topics: [creepage_clearance, high_voltage_pcb]
+    memory_types: []
+    applicable_interfaces: []
+    applicable_parts: []
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: null
+    source_access: local
+    supersedes: null
+    notes: TI 2024 电源设计研讨会资料；本地原件经阶段 3 哈希一致复制。
+    file_hash: 00ab5abdc8b6338ceff916512ecd1477af51ba3b4008833c86fd091c95bce944
+
+  - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+    title: 信号完整性基础
+    revision: 2009-05-24 training edition
+    vendor: 深圳市同洲电子股份有限公司
+    file: data/raw/experience/cosh_ip_signal_integrity_training_2009.pptx
+    document_type: training_material
+    source_format: pptx
+    language: zh-CN
+    domains: [signal_integrity]
+    topics: [signal_integrity, eye_diagram, jitter, pcie]
+    memory_types: []
+    applicable_interfaces: [pcie]
+    applicable_parts: []
+    authority: unverified_note
+    authority_score: 40
+    status: active
+    published_date: 2009-05-24
+    confidentiality: public
+    source_url: null
+    source_access: local
+    supersedes: null
+    notes: 未审核培训资料，只能作为工程经验引用；由原始 PPT 非覆盖转换，38 页结构、备注和逐页渲染均已核对，用户已确认转换无误。
+    file_hash: ec548951f408049ecf360cada8a9099a5a410da143a53d06e6647bee3b2d4c0d
+
+  - doc_id: GOWIN_TN662_DDR2_DDR3_HARDWARE_DESIGN_V1_3_2
+    title: 基于高云 FPGA 的 DDR2&DDR3 硬件设计参考手册
+    revision: TN662-1.3.2
+    vendor: GOWIN Semiconductor
+    file: data/raw/vendor/gowin_tn662_ddr2_ddr3_hardware_design_reference_v1.3.2_zh.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: zh-CN
+    domains: [memory, hardware_general, power_management, signal_integrity]
+    topics: [ddr2, ddr3, ddr_design, ddr_routing, ddr_power, power_integrity, signal_integrity, termination, pcb_layout]
+    memory_types: [DDR2, DDR3]
+    applicable_interfaces: []
+    applicable_parts: [GW2A, GW5A, GW5AT, GW5AST, GW5AR, GW5AS, GW3A-20]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: 2026-05-28
+    confidentiality: public
+    source_url: https://cdn.gowinsemi.com.cn/TN662.pdf
+    source_access: official
+    supersedes: null
+    notes: 高云官方中文手册；章节分类区分器件 I/O、DDR 原理图、电源/PDN、端接与 PCB 走线，不将特定器件的 Bank/I/O 规则泛化。
+    file_hash: 67631e8cecf77dc3147f13248fa43e2c8167d28038ce0791afc722a0c0679666
+
+  - doc_id: GOWIN_UG206_GW2A_GW2AR_SCHEMATIC_GUIDE_V1_9_3
+    title: GW2A/GW2AR 系列 FPGA 产品原理图指导手册
+    revision: UG206-1.9.3
+    vendor: GOWIN Semiconductor
+    file: data/raw/vendor/gowin_ug206_gw2a_gw2ar_schematic_guide_v1.9.3_zh.pdf
+    document_type: hardware_design_guide
+    source_format: pdf
+    language: zh-CN
+    domains: [hardware_general, power_management, signal_integrity]
+    topics: [hardware_design, pcb_layout, power_supply, power_sequencing, signal_integrity, impedance, termination]
+    memory_types: []
+    applicable_interfaces: []
+    applicable_parts: [GW2A, GW2AR]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: 2026-03-09
+    confidentiality: public
+    source_url: https://cdn.gowinsemi.com.cn/UG206.pdf
+    source_access: official
+    supersedes: null
+    notes: 高云官方中文原理图指导手册；配置模式、管脚复用和电源要求需结合具体封装 Pinout 与 UG290 复核。
+    file_hash: e4d5c4fa1b6834a7d4244395dab951c85d77cebdfff1cc3db03eff2aa9ed7d21

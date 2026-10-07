@@ -1,0 +1,86 @@
+# DDR knowledge-base source catalog.
+# Keep one record for every PDF, DOCX, or PPTX source. Paths are relative to the project root.
+# Source access tells us whether the downloaded copy came directly from a vendor
+# or from a public mirror. Authority describes who authored the document.
+documents:
+  - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+    title: Rockchip RK3568 Hardware Design Guide
+    revision: V1.2
+    vendor: Rockchip
+    file: data/raw/vendor/rockchip_rk3568_hardware_design_guide_v1.2_cn.pdf
+    document_type: hardware_design_guide
+    language: zh-CN
+    memory_types: [DDR3, DDR3L, LPDDR3, DDR4, LPDDR4, LPDDR4X]
+    applicable_parts: [RK3568]
+    authority: vendor_design_guide
+    authority_score: 85
+    status: active
+    published_date: 2021-11-07
+    confidentiality: public
+    source_url: https://gitlab.com/firefly-linux/docs-soc_internal-cn/-/raw/rk356x/firefly-5.10/Hardware/Rockchip_RK3568_Hardware_Design_Guide_V1.2_20211107_CN.pdf
+    source_access: public_mirror
+    supersedes: null
+    notes: 原厂内容由 Firefly 公开 GitLab 镜像提供；使用具体规则前应结合目标 RK3568 版本及最新原厂发布核对。
+    file_hash: 501aa1c20c6bdc92998e14ecb70a3acc6fc48951d747eb7d829028279bcea61a
+
+  - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+    title: AM62x and AM62Lx DDR Board Design and Layout Guidelines
+    revision: Rev. C / SPRAD06C
+    vendor: Texas Instruments
+    file: data/raw/vendor/ti_am62x_am62lx_ddr_board_design_layout_guidelines_rev_c_202503.pdf
+    document_type: hardware_design_guide
+    language: en
+    memory_types: [DDR4, LPDDR4]
+    applicable_parts: [AM62x, AM62Lx]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: null
+    confidentiality: public
+    source_url: https://www.ti.com/lit/an/sprad06c/sprad06c.pdf
+    source_access: official
+    supersedes: null
+    notes: TI 官方应用报告，文档标注 2025 年 3 月修订；包含 DDR4 与 LPDDR4 的放置、拓扑、布线限制和仿真要求。
+    file_hash: cfb8615c463d79ce2b8b2d7d011b502c8a1f08b4e5d2d1294ae97c62249d7e72
+
+  - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+    title: i.MX 8M Plus Hardware Developer's Guide
+    revision: Rev. 1
+    vendor: NXP
+    file: data/raw/vendor/nxp_imx8m_plus_hardware_developers_guide_rev1_20240326.pdf
+    document_type: hardware_design_guide
+    language: en
+    memory_types: [DDR4, LPDDR4]
+    applicable_parts: [i.MX 8M Plus]
+    authority: vendor_design_guide
+    authority_score: 95
+    status: active
+    published_date: 2024-03-26
+    confidentiality: public
+    source_url: https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-processors/229659/1/IMX8MPHDG.pdf
+    source_access: official_community
+    supersedes: null
+    notes: NXP 官方文档，DDR 章节包含 LPDDR4-4000/DDR4 连接、布线建议、封装延迟和参考布局。
+    file_hash: a90105ddcb939b2fad2de4b0466803dc7877f177008f816b36fe856597cd582f
+
+# Example:
+# documents:
+#   - doc_id: MICRON_DDR4_DESIGN_GUIDE_R1
+#     title: Micron DDR4 Hardware Design Guide
+#     revision: Rev. 1
+#     vendor: Micron
+#     file: data/raw/vendor/micron_ddr4_design_guide_rev1.pdf
+#     document_type: hardware_design_guide
+#     language: en
+#     memory_types: [DDR4]
+#     applicable_parts: []
+#     authority: vendor_design_guide
+#     authority_score: 90
+#     status: active
+#     published_date: 2024-01-01
+#     confidentiality: public
+#     source_url: https://example.com/original-document.pdf
+#     source_access: official
+#     supersedes: null
+#     notes: null
+#     file_hash: null

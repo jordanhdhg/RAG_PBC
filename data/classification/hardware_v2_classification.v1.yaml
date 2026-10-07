@@ -1,0 +1,218 @@
+schema_version: 1
+mapping_id: hardware_v2_classification_v1
+taxonomy_version: hardware-v2-taxonomy-v1
+documents:
+  - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+    default:
+      domains: [hardware_general]
+      topics: [hardware_design]
+    section_overrides:
+      - rule_id: rk3568_ddr_power
+        priority: 300
+        match: {kind: regex, pattern: "DDR.*(?:电源|上电|供电)"}
+        classification:
+          domains: [memory, power_management]
+          topics: [ddr_power, power_supply]
+          memory_types: [DDR3, DDR3L, LPDDR3, DDR4, LPDDR4, LPDDR4X]
+      - rule_id: rk3568_lpddr4x
+        priority: 270
+        match: {kind: contains, pattern: LPDDR4x}
+        classification:
+          domains: [memory]
+          topics: [lpddr4x, ddr_design]
+          memory_types: [LPDDR4X]
+      - rule_id: rk3568_lpddr4
+        priority: 260
+        match: {kind: regex, pattern: "LPDDR4(?!x)"}
+        classification:
+          domains: [memory]
+          topics: [lpddr4, ddr_design]
+          memory_types: [LPDDR4]
+      - rule_id: rk3568_lpddr3
+        priority: 260
+        match: {kind: contains, pattern: LPDDR3}
+        classification:
+          domains: [memory]
+          topics: [lpddr3, ddr_design]
+          memory_types: [LPDDR3]
+      - rule_id: rk3568_ddr4
+        priority: 250
+        match: {kind: regex, pattern: "(?<!LP)DDR4"}
+        classification:
+          domains: [memory]
+          topics: [ddr4, ddr_design]
+          memory_types: [DDR4]
+      - rule_id: rk3568_ddr
+        priority: 200
+        match: {kind: contains, pattern: DDR}
+        classification:
+          domains: [memory]
+          topics: [ddr3, ddr3l, lpddr3, ddr4, lpddr4, lpddr4x, ddr_design]
+          memory_types: [DDR3, DDR3L, LPDDR3, DDR4, LPDDR4, LPDDR4X]
+      - rule_id: rk3568_usb
+        priority: 120
+        match: {kind: contains, pattern: USB}
+        classification:
+          domains: [high_speed_interface]
+          topics: [usb]
+          applicable_interfaces: [usb]
+      - rule_id: rk3568_pcie
+        priority: 120
+        match: {kind: contains, pattern: PCIe}
+        classification:
+          domains: [high_speed_interface, signal_integrity]
+          topics: [pcie]
+          applicable_interfaces: [pcie]
+      - rule_id: rk3568_hdmi
+        priority: 120
+        match: {kind: contains, pattern: HDMI}
+        classification:
+          domains: [high_speed_interface]
+          topics: [hdmi]
+          applicable_interfaces: [hdmi]
+      - rule_id: rk3568_csi
+        priority: 120
+        match: {kind: contains, pattern: CSI}
+        classification:
+          domains: [high_speed_interface]
+          topics: [csi]
+          applicable_interfaces: [csi]
+      - rule_id: rk3568_power
+        priority: 100
+        match: {kind: regex, pattern: "电源|供电|上电|PMU|RK809|LDO|Power"}
+        classification:
+          domains: [power_management]
+          topics: [power_supply]
+
+  - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+    default:
+      domains: [memory]
+      topics: [ddr4, lpddr4, ddr_routing]
+      memory_types: [DDR4, LPDDR4]
+    section_overrides:
+      - rule_id: ti_am62_lpddr4
+        priority: 200
+        match: {kind: contains, pattern: LPDDR4}
+        classification:
+          domains: [memory]
+          topics: [lpddr4, ddr_routing]
+          memory_types: [LPDDR4]
+      - rule_id: ti_am62_ddr4
+        priority: 100
+        match: {kind: regex, pattern: "(?<!LP)DDR4"}
+        classification:
+          domains: [memory]
+          topics: [ddr4, ddr_routing]
+          memory_types: [DDR4]
+
+  - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+    default:
+      domains: [hardware_general]
+      topics: [hardware_design]
+    section_overrides:
+      - rule_id: nxp_imx8mp_document_information
+        priority: 400
+        match: {kind: exact, pattern: "Document information"}
+        classification:
+          domains: [hardware_general, memory]
+          topics: [hardware_design, ddr_design]
+          memory_types: [DDR4, LPDDR4]
+      - rule_id: nxp_imx8mp_jedec_compliance
+        priority: 400
+        match: {kind: contains, pattern: "JEDEC specification compliance"}
+        classification:
+          domains: [memory]
+          topics: [ddr4, lpddr4, ddr_design]
+          memory_types: [DDR4, LPDDR4]
+      - rule_id: nxp_imx8mp_ddr_si
+        priority: 300
+        match: {kind: regex, pattern: "DDR.*(?:SI|signal integrity|simulation)"}
+        classification:
+          domains: [memory, signal_integrity]
+          topics: [ddr4, lpddr4, signal_integrity]
+          memory_types: [DDR4, LPDDR4]
+      - rule_id: nxp_imx8mp_ddr
+        priority: 200
+        match: {kind: regex, pattern: "DDR|LPDDR"}
+        classification:
+          domains: [memory]
+          topics: [ddr4, lpddr4, ddr_design]
+          memory_types: [DDR4, LPDDR4]
+      - rule_id: nxp_imx8mp_usb
+        priority: 120
+        match: {kind: contains, pattern: USB}
+        classification:
+          domains: [high_speed_interface]
+          topics: [usb]
+          applicable_interfaces: [usb]
+      - rule_id: nxp_imx8mp_power
+        priority: 100
+        match: {kind: regex, pattern: "power|decoupling"}
+        classification:
+          domains: [power_management]
+          topics: [power_supply]
+
+  - doc_id: GOWIN_TN662_DDR2_DDR3_HARDWARE_DESIGN_V1_3_2
+    default:
+      domains: [memory]
+      topics: [ddr2, ddr3, ddr_design]
+      memory_types: [DDR2, DDR3]
+    section_overrides:
+      - rule_id: gowin_tn662_ddr_power
+        priority: 320
+        match: {kind: regex, pattern: "电源|供电|PDN|去耦"}
+        classification:
+          domains: [memory, power_management]
+          topics: [ddr_power, power_integrity, power_supply]
+          memory_types: [DDR2, DDR3]
+      - rule_id: gowin_tn662_termination
+        priority: 310
+        match: {kind: regex, pattern: "端接|VTT|ODT"}
+        classification:
+          domains: [memory, signal_integrity]
+          topics: [ddr_routing, termination]
+          memory_types: [DDR2, DDR3]
+      - rule_id: gowin_tn662_pcb_routing
+        priority: 300
+        match: {kind: regex, pattern: "PCB *设计|拓扑|信号走线|同层走线|线宽|线距|走线长度|参考平面|跨分割|过孔"}
+        classification:
+          domains: [memory, signal_integrity, hardware_general]
+          topics: [ddr_routing, signal_integrity, pcb_layout]
+          memory_types: [DDR2, DDR3]
+      - rule_id: gowin_tn662_io_assignment
+        priority: 200
+        match: {kind: regex, pattern: "I/O|Bank|分配"}
+        classification:
+          domains: [memory, hardware_general]
+          topics: [ddr_design, hardware_design]
+          memory_types: [DDR2, DDR3]
+
+  - doc_id: GOWIN_UG206_GW2A_GW2AR_SCHEMATIC_GUIDE_V1_9_3
+    default:
+      domains: [hardware_general]
+      topics: [hardware_design]
+    section_overrides:
+      - rule_id: gowin_ug206_power
+        priority: 300
+        match: {kind: regex, pattern: "电源|上电|滤波|Bank *电压"}
+        classification:
+          domains: [power_management, hardware_general]
+          topics: [power_supply, power_sequencing, hardware_design]
+      - rule_id: gowin_ug206_differential
+        priority: 220
+        match: {kind: regex, pattern: "差分|LVDS"}
+        classification:
+          domains: [signal_integrity, hardware_general]
+          topics: [signal_integrity, impedance, termination, hardware_design]
+      - rule_id: gowin_ug206_clock
+        priority: 180
+        match: {kind: regex, pattern: "时钟 *管脚|晶振"}
+        classification:
+          domains: [hardware_general, signal_integrity]
+          topics: [hardware_design, signal_integrity]
+      - rule_id: gowin_ug206_pin_assignment
+        priority: 120
+        match: {kind: regex, pattern: "管脚分配|管脚复用|配置模式"}
+        classification:
+          domains: [hardware_general]
+          topics: [hardware_design, pcb_layout]

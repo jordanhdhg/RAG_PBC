@@ -1,0 +1,50 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+
+# Generated RAG data
+data/index/
+data/cache/
+data/models/
+data/parsed/
+data/chunks/
+logs/
+
+# Original and potentially confidential documents
+data/raw/*
+!data/raw/.gitkeep
+
+# Local editor and OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+# 项目独立 Python 运行环境
+.venv-d312/
+.runtime/
+
+# 通用硬件 RAG V2 的可再生产物
+data/hardware-v2/parsed/
+data/hardware-v2/chunks/
+data/hardware-v2/index/
+data/hardware-v2/logs/
+
+# 未审核候选资料：保留审查记录，但不提交候选原文件
+未入库资料/*
+!未入库资料/资料审查.md
+
+# Python build metadata
+*.egg-info/
+
+# PPT 转换审查生成的 PNG
+data/hardware-v2/review/cosh_signal_integrity/converted_png/
+data/hardware-v2/review/cosh_signal_integrity/converted_sheets/
+data/hardware-v2/review/cosh_signal_integrity/source_png/
+data/hardware-v2/review/cosh_signal_integrity/source_sheets/
+
+# 原始论文 PDF
+资料/*.pdf
+资料/*.PDF
