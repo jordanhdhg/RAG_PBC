@@ -1,0 +1,713 @@
+schema_version: 2
+dataset_id: hardware_rag_v2_stage4
+description: >-
+  通用硬件 RAG V2 阶段 4 新增的 50 道本地验收题。与不可变的 DDR V1 40 题合并后共 90 题；
+  本题集包含 30 道新增资料单文档可回答题、10 道资料不足题、6 道显式跨领域题和 4 道歧义路由题。
+validation_requirements:
+  total_questions: 50
+  answerable_questions: 36
+  refusal_questions: 14
+  min_answerable_by_language:
+    zh-CN: 30
+    en: 6
+  required_source_doc_ids:
+    - JEDEC_JESD79_2C_DDR2_SDRAM_2006
+    - TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+    - TI_ZHCY093_LDO_BASICS_ZH
+    - TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+    - COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+questions:
+  - question_id: V2_DDR2_ANS_01
+    question: DDR2 首次上电初始化时，CKE、ODT 和稳定电源/时钟后的等待时间有什么要求？
+    language: zh-CN
+    category: initialization_sequence
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.3.1 Power-up and initialization sequence
+        page_numbers: [23]
+    expected_key_facts:
+      - 上电期间应尽量保持 CKE 低于 0.2×VDDQ，ODT 保持低电平。
+      - 电源和时钟稳定后至少等待 200 μs，再施加 NOP 或 Deselect 并把 CKE 拉高。
+
+  - question_id: V2_DDR2_ANS_02
+    question: DDR2 的 ODT 功能终接哪些信号、由什么控制，以及在 Self Refresh 中是否可用？
+    language: zh-CN
+    category: termination
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.4.4 ODT (on-die termination)
+        page_numbers: [33]
+    expected_key_facts:
+      - ODT 通过 ODT 控制引脚为 DQ、DQS、DM 等信号开关片上终接电阻。
+      - ODT 用于改善内存通道信号完整性，在 Self Refresh 模式中关闭且不受支持。
+
+  - question_id: V2_DDR2_ANS_03
+    question: What is DDR2 Posted CAS, and how are additive latency, read latency, and write latency related?
+    language: en
+    category: command_timing
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.6.1 Posted CAS
+        page_numbers: [39]
+    expected_key_facts:
+      - Posted CAS permits a CAS read or write immediately after RAS activation and holds it for additive latency.
+      - RL equals AL plus CL, and WL equals RL minus one.
+
+  - question_id: V2_DDR2_ANS_04
+    question: Which burst lengths and burst types does DDR2 support, and what interruption restriction applies to BL=4?
+    language: en
+    category: burst_operation
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.6.2 Burst mode operation
+        page_numbers: [40]
+    expected_key_facts:
+      - DDR2 supports burst lengths 4 and 8 with programmable sequential or interleaved burst type.
+      - Interrupting a read or write burst in BL=4 is prohibited, and Burst Stop is not supported.
+
+  - question_id: V2_DDR2_ANS_05
+    question: 发出 DDR2 Refresh 命令前，各 Bank 必须处于什么状态？刷新完成后到下一条 Activate 或 Refresh 之间受什么时间约束？
+    language: zh-CN
+    category: refresh
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.9 Refresh command
+        page_numbers: [55]
+    expected_key_facts:
+      - 所有 Bank 必须先预充电并至少空闲一个 tRP。
+      - Refresh 到下一条 Activate 或 Refresh 的延迟必须不小于 tRFC。
+
+  - question_id: V2_DDR2_ANS_06
+    question: DDR2 Self Refresh 如何在没有外部时钟时保持数据？进入该模式前 ODT 和 CKE 应如何处理？
+    language: zh-CN
+    category: self_refresh
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.10 Self refresh operation
+        page_numbers: [56]
+    expected_key_facts:
+      - 器件依靠内部定时器在没有外部时钟时执行自刷新并保持数据。
+      - 发命令前必须关闭 ODT；命令登记后 CKE 必须保持低电平以维持 Self Refresh。
+
+  - question_id: V2_DDR2_REF_01
+    question: JESD79-2C 对 DDR2-1600 的 tCK、tRCD 和完整 AC 时序限值分别是多少？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: false
+    refusal_reason: JESD79-2C 的速度等级表覆盖 DDR2-400/533/667/800，不提供 DDR2-1600 的完整时序等级。
+
+  - question_id: V2_DDR2_REF_02
+    question: 这份 DDR2 标准中应怎样配置 DDR5 片上 ECC、Bank Group 和 Decision Feedback Equalization？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [memory]
+    topics: [ddr2, sdram_standard]
+    memory_type: DDR2
+    answerable: false
+    refusal_reason: 本资料是 DDR2 SDRAM 标准，不包含 DDR5 的片上 ECC、Bank Group 或均衡器配置。
+
+  - question_id: V2_HSI_ANS_01
+    question: What general rule does TI give for the total trace length of a high-speed signal pair?
+    language: en
+    category: trace_length
+    domains: [high_speed_interface]
+    topics: [high_speed_layout]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 2.2 High-Speed Signal Trace Lengths
+        page_numbers: [5]
+    expected_key_facts:
+      - Keep the total trace length of each high-speed signal pair to a minimum.
+      - Device-specific trace-length requirements are listed separately in Appendix A.
+
+  - question_id: V2_HSI_ANS_02
+    question: For a high-speed differential interface, which lengths must match, and where should serpentine compensation be placed?
+    language: en
+    category: length_matching
+    domains: [high_speed_interface]
+    topics: [high_speed_layout]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 2.3 High-Speed Signal Trace Length Matching
+        page_numbers: [6]
+    expected_key_facts:
+      - Match the two traces within each differential pair; transmit-pair length need not match receive-pair length.
+      - Add serpentine compensation as close as possible to the mismatched ends.
+
+  - question_id: V2_HSI_ANS_03
+    question: Why should high-speed traces stay over a solid ground reference plane instead of crossing a split or void?
+    language: en
+    category: reference_plane
+    domains: [high_speed_interface]
+    topics: [high_speed_layout]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 2.4 High-Speed Signal Reference Planes
+        page_numbers: [6]
+    expected_key_facts:
+      - A split or void forces high-frequency return current around the discontinuity and increases loop inductance.
+      - Consequences include emissions, propagation delay, adjacent-signal interference, more jitter, and lower amplitude.
+
+  - question_id: V2_HSI_ANS_04
+    question: What is TI's 5W spacing rule for high-speed differential pairs, and what spacing results from a 6 mil trace width?
+    language: en
+    category: differential_spacing
+    domains: [high_speed_interface]
+    topics: [high_speed_layout]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 3.1 Differential Signal Spacing
+        page_numbers: [9]
+    expected_key_facts:
+      - Adjacent high-speed differential pairs require spacing of at least five times the trace width.
+      - A 6 mil trace width therefore requires at least 30 mil between pairs.
+
+  - question_id: V2_HSI_ANS_05
+    question: USB 通孔插座和表贴插座的高速差分线分别建议从哪一层连接，原因是什么？
+    language: zh-CN
+    category: connector_layout
+    domains: [high_speed_interface]
+    topics: [usb, high_speed_layout]
+    applicable_interfaces: [usb]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 3.5 Connectors and Receptacles
+        page_numbers: [10]
+    expected_key_facts:
+      - 通孔插座建议在 PCB 底层连接，以免通孔引脚成为传输路径 Stub。
+      - 表贴插座建议在顶层连接，以避免传输路径中引入过孔。
+
+  - question_id: V2_HSI_ANS_06
+    question: 高速信号过孔为什么会造成不连续，TI 对 Stub 长度和过长 Stub 的处理有什么建议？
+    language: zh-CN
+    category: via_discontinuity
+    domains: [high_speed_interface]
+    topics: [high_speed_layout]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 3.6 Via Discontinuity Mitigation
+        page_numbers: [11]
+    expected_key_facts:
+      - 过孔几何变化可表现为容性或感性不连续，导致反射和信号劣化。
+      - TI 建议 Stub 小于 15 mil，较长 Stub 需要背钻。
+
+  - question_id: V2_HSI_REF_01
+    question: 依据这份指南，PCIe 6.0 64 GT/s 通道从封装到连接器的精确插损预算是多少 dB？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [high_speed_interface]
+    topics: [pcie, high_speed_layout]
+    applicable_interfaces: [pcie]
+    answerable: false
+    refusal_reason: 该通用布局指南未给出 PCIe 6.0 64 GT/s 的完整通道插损预算，需查对应器件和 PCIe 规范。
+
+  - question_id: V2_HSI_REF_02
+    question: 这份资料能否给出 USB4 80Gbps 连接器的完整认证测试项目、仪器设置和合格限值？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [high_speed_interface]
+    topics: [usb, high_speed_layout]
+    applicable_interfaces: [usb]
+    answerable: false
+    refusal_reason: 资料只提供通用高速接口布局建议，不包含 USB4 80Gbps 的完整认证测试规范。
+
+  - question_id: V2_LDO_ANS_01
+    question: LDO 的压降电压如何定义？输入电压低于所需余量时输出会怎样？
+    language: zh-CN
+    category: dropout
+    domains: [power_management]
+    topics: [ldo]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是压降？
+        page_numbers: [3]
+    expected_key_facts:
+      - 压降是为维持正常稳压所需的最小 VIN−VOUT 压差。
+      - 余量不足时 LDO 进入压降状态并停止正常调节，输出开始跟随输入变化。
+
+  - question_id: V2_LDO_ANS_02
+    question: LDO 的静态电流和关断电流分别描述什么工作状态下的电流消耗？
+    language: zh-CN
+    category: quiescent_current
+    domains: [power_management]
+    topics: [ldo]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是静态电流？
+        page_numbers: [11]
+    expected_key_facts:
+      - 静态电流是系统待机且轻载或空载时消耗的电流。
+      - 关断电流是器件关闭但系统仍连接电池时消耗的电流。
+
+  - question_id: V2_LDO_ANS_03
+    question: LDO 的“砖墙”电流限制与恒流源有什么区别，内部限流的目的是什么？
+    language: zh-CN
+    category: current_limit
+    domains: [power_management]
+    topics: [ldo]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是电流限制功能，该功能如何运作？
+        page_numbers: [13]
+    expected_key_facts:
+      - 限流建立输出电流上限，LDO 仍按负载需求供电而不是作为恒流源。
+      - 达到设定限值后输出电流被突然限制，因此称为砖墙限流。
+
+  - question_id: V2_LDO_ANS_04
+    question: LDO 出现从 VOUT 流向 VIN 的反向电流时，典型电流路径和潜在风险是什么？
+    language: zh-CN
+    category: reverse_current
+    domains: [power_management]
+    topics: [ldo]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 作者： Mark Sellers
+        page_numbers: [15]
+    expected_key_facts:
+      - 反向电流通常从 VOUT 经导通 FET 的体二极管流向 VIN，而非走正常导电通道。
+      - 该电流可能造成长期可靠性问题甚至损坏器件。
+
+  - question_id: V2_LDO_ANS_05
+    question: LDO 的 PSRR 表示什么？为什么只看数据表在 120 Hz 或 1 kHz 的单点数值可能不够？
+    language: zh-CN
+    category: psrr
+    domains: [power_management]
+    topics: [ldo, power_integrity]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是 PSRR ？
+        page_numbers: [17]
+    expected_key_facts:
+      - PSRR 描述特定频率的输入交流成分被衰减到输出的程度，TI 用更高的正 dB 值表示更强衰减。
+      - PSRR 随频率和工作条件变化，单个 120 Hz 或 1 kHz 指标不能代表完整滤波能力。
+
+  - question_id: V2_LDO_ANS_06
+    question: NR/SS 引脚上的降噪电容如何影响 LDO 输出噪声、启动斜率和浪涌电流？
+    language: zh-CN
+    category: noise_reduction
+    domains: [power_management]
+    topics: [ldo, power_integrity]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 降噪电容器
+        page_numbers: [20]
+    expected_key_facts:
+      - CNR/SS 与内部电阻形成低通滤波器，可降低参考源噪声。
+      - 增大 CNR/SS 会减慢输出启动斜率并可降低浪涌电流，但也会延长启动时间。
+
+  - question_id: V2_LDO_REF_01
+    question: 请给出 TPS7A05 每个引脚的精确编号、封装焊盘尺寸和推荐 PCB 封装图。
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [power_management]
+    topics: [ldo]
+    answerable: false
+    refusal_reason: 《LDO 基础知识》不是 TPS7A05 数据手册，无法提供该器件的完整引脚和封装尺寸。
+
+  - question_id: V2_LDO_REF_02
+    question: 根据这份资料，今天采购 10,000 颗指定 LDO 的人民币单价、交期和可用库存是多少？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [power_management]
+    topics: [ldo]
+    answerable: false
+    refusal_reason: 本地技术资料不包含实时价格、库存或交期信息。
+
+  - question_id: V2_SAFE_ANS_01
+    question: 爬电距离与电气间隙分别如何测量，它们主要受哪些不同因素影响？
+    language: zh-CN
+    category: safety_definition
+    domains: [electrical_safety]
+    topics: [creepage_clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 爬电距离和电气间隙
+        page_numbers: [2]
+    expected_key_facts:
+      - 爬电距离沿固体绝缘表面测量，主要与工作电压、污染、湿度和材料组有关。
+      - 电气间隙是在空气中的最短距离，主要与瞬态过压、海拔气压和污染有关。
+
+  - question_id: V2_SAFE_ANS_02
+    question: 污染等级 1 到 4 的环境特征如何逐级变化？办公室和室外持久潮湿环境通常分别属于哪一级？
+    language: zh-CN
+    category: pollution_degree
+    domains: [electrical_safety]
+    topics: [creepage_clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 污染等级
+        page_numbers: [3]
+    expected_key_facts:
+      - 等级从无污染/干燥非导电污染逐步增加到持久导电污染。
+      - 办公室通常是污染等级 2，室外雨水或持久潮湿环境常见污染等级 4。
+
+  - question_id: V2_SAFE_ANS_03
+    question: CTI 如何用于绝缘材料分组？常见 FR4 和 TI 隔离产品在资料中分别归入什么材料组？
+    language: zh-CN
+    category: material_group
+    domains: [electrical_safety]
+    topics: [creepage_clearance, insulation]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 材料组和相对漏电起痕指数
+        page_numbers: [3]
+    expected_key_facts:
+      - CTI 按材料在规定滴液测试中发生击穿前可承受的最大电压划分材料组。
+      - 大多数 FR4 属于 IIIa，资料称 TI 隔离产品属于材料组 I。
+
+  - question_id: V2_SAFE_ANS_04
+    question: 瞬态过压类别按什么原则划分？类别 I 与类别 IV 的典型连接位置有何区别？
+    language: zh-CN
+    category: overvoltage_category
+    domains: [electrical_safety]
+    topics: [creepage_clearance, clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 瞬态过压类别
+        page_numbers: [3]
+    expected_key_facts:
+      - 类别按设备相对于主电源的连接位置及遭遇瞬态的概率含义划分。
+      - 类别 I 是经过限压方式连接的电路，类别 IV 是在原始安装点直接接入电源的设备。
+
+  - question_id: V2_SAFE_ANS_05
+    question: 确定基本或增强绝缘的爬电距离前，需要哪些输入条件？增强绝缘如何处理查表所得距离？
+    language: zh-CN
+    category: creepage_selection
+    domains: [electrical_safety]
+    topics: [creepage_clearance, insulation]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 确定绝缘系统中的爬电距离以确保用户的安全
+        page_numbers: [6]
+    expected_key_facts:
+      - 需要工作电压、绝缘材料组、污染等级以及适用的终端设备标准。
+      - 基本绝缘使用查表值；资料所述流程中增强绝缘将该距离加倍。
+
+  - question_id: V2_SAFE_ANS_06
+    question: 确定电气间隙时为何必须知道瞬态电压、污染等级和海拔？海拔超过 2,000 m 后怎么办？
+    language: zh-CN
+    category: clearance_selection
+    domains: [electrical_safety]
+    topics: [creepage_clearance, clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 确定绝缘系统中的电气间隙以确保用户安全
+        page_numbers: [7]
+    expected_key_facts:
+      - 电气间隙由所需脉冲电压、污染等级和终端设备标准共同决定。
+      - 工作海拔超过 2,000 m 时，应按 IEC 60664-1 表 A.2 使用电气间隙倍增系数。
+
+  - question_id: V2_SAFE_REF_01
+    question: 某块 1,500 V PCB 的最小爬电距离和电气间隙各是多少毫米？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [electrical_safety]
+    topics: [creepage_clearance, high_voltage_pcb]
+    answerable: false
+    refusal_reason: 未给出工作/瞬态电压性质、绝缘等级、材料组、污染等级、海拔和适用标准，不能唯一确定距离。
+
+  - question_id: V2_SAFE_REF_02
+    question: 仅凭这份资料，能否判定我的具体产品已经通过 UL 和 IEC 安规认证？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [electrical_safety]
+    topics: [creepage_clearance, insulation]
+    answerable: false
+    refusal_reason: 技术资料不能替代具体产品结构、材料、试验记录和认证机构的合格评定。
+
+  - question_id: V2_SI_ANS_01
+    question: 这份培训资料如何定义“信号完整性”，分析时要同时检查哪两个方面？
+    language: zh-CN
+    category: si_definition
+    domains: [signal_integrity]
+    topics: [signal_integrity]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: Signal Integrity定义
+        slide_numbers: [3]
+    expected_key_facts:
+      - 信号在要求时间内不失真地从源端到达接收端可称为完整。
+      - 分析同时关注独立信号质量和时序。
+
+  - question_id: V2_SI_ANS_02
+    question: 培训资料中的特征阻抗 Z0 是什么，可用哪两个瞬时量的比值表示？
+    language: zh-CN
+    category: characteristic_impedance
+    domains: [signal_integrity]
+    topics: [signal_integrity, impedance]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [7]
+    expected_key_facts:
+      - Z0 是交流信号沿传输线传播时每一步遇到的不变瞬时阻抗。
+      - 可用传输线输入电压与输入电流的比值 V/I 表示。
+
+  - question_id: V2_SI_ANS_03
+    question: 资料如何解释传输线反射产生的原因，反射程度用什么量描述？
+    language: zh-CN
+    category: reflection
+    domains: [signal_integrity]
+    topics: [signal_integrity, impedance]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [8]
+    expected_key_facts:
+      - 阻抗不匹配会使信号能量不能被完全吸收，从而产生反射。
+      - 反射程度可用反射系数 ρ 表示。
+
+  - question_id: V2_SI_ANS_04
+    question: 与单端信令相比，资料列出的差分信令在摆幅、功耗、EMI/噪声和 SNR 方面有哪些特点？
+    language: zh-CN
+    category: differential_signaling
+    domains: [signal_integrity]
+    topics: [signal_integrity]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [22]
+    expected_key_facts:
+      - 差分信令使用更小电压摆幅、功耗更低，并产生更少 EMI 和噪声。
+      - 差分接收可去除共模噪声并获得更高 SNR。
+
+  - question_id: V2_SI_ANS_05
+    question: 抖动的基本定义是什么？资料按计算方法列出了哪些常见抖动类型？
+    language: zh-CN
+    category: jitter
+    domains: [signal_integrity]
+    topics: [jitter]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [27]
+    expected_key_facts:
+      - 抖动是信号定时事件相对其理想位置的偏差。
+      - 资料列出 TIE、Period、Cycle-to-Cycle 和 Half-Period 等计算口径。
+
+  - question_id: V2_SI_ANS_06
+    question: 资料为什么把传输线看作低通滤波器，PCI Express 预加重怎样补偿高频损耗？
+    language: zh-CN
+    category: pre_emphasis
+    domains: [signal_integrity]
+    topics: [signal_integrity, pcie]
+    applicable_interfaces: [pcie]
+    answerable: true
+    expected_sources:
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 眼图的形成
+        slide_numbers: [35]
+    expected_key_facts:
+      - 传输线对高频成分的损耗大于低频成分，表现为低通特性。
+      - 预加重在信号跳变时提高幅度；资料举例称 PCI Express 跳变幅度高 3.5 dB。
+
+  - question_id: V2_SI_REF_01
+    question: 这份 2009 培训资料给出的 PCIe 6.0 PAM4 合规眼图 Mask 数值和 BER 限值是多少？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [signal_integrity]
+    topics: [eye_diagram, pcie]
+    applicable_interfaces: [pcie]
+    answerable: false
+    refusal_reason: 该培训资料不包含 PCIe 6.0 PAM4 的正式合规 Mask 与 BER 数值，应查当前 PCI-SIG 规范。
+
+  - question_id: V2_SI_REF_02
+    question: 没有提供示波器波形、测量带宽和探头信息时，能否判定我这块板的眼图一定合格？
+    language: zh-CN
+    category: evidence_insufficiency
+    domains: [signal_integrity]
+    topics: [eye_diagram]
+    answerable: false
+    refusal_reason: 缺少实际波形、测试配置、目标协议和限值，不能对具体板卡作出眼图合格判定。
+
+  - question_id: V2_CROSS_01
+    question: 联合说明 DDR2 ODT 的用途，以及传输线阻抗不匹配为什么会产生反射。
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [memory, signal_integrity]
+    topics: [ddr2, signal_integrity, termination, impedance]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.4.4 ODT (on-die termination)
+        page_numbers: [33]
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [8]
+    expected_key_facts:
+      - DDR2 ODT 允许控制器按器件开关片上终接，以改善内存通道信号完整性。
+      - 阻抗不匹配导致信号能量不能完全吸收，从而出现反射。
+
+  - question_id: V2_CROSS_02
+    question: 高速差分对组内等长应怎样处理？若用两个单端通道再相减测差分信号，测试端还需要注意什么？
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [high_speed_interface, signal_integrity]
+    topics: [high_speed_layout, signal_integrity]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 2.3 High-Speed Signal Trace Length Matching
+        page_numbers: [6]
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [23]
+    expected_key_facts:
+      - PCB 上应匹配差分对内部两根线的长度，并把蛇形补偿放在失配端附近。
+      - 两个单端通道经 A/D 后相减的测试方法需要进行通道 De-Skew。
+
+  - question_id: V2_CROSS_03
+    question: 排查时钟周期性抖动时，为什么应同时检查给时钟电路供电的 LDO PSRR 与电源噪声？
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [power_management, signal_integrity]
+    topics: [ldo, power_integrity, jitter]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是 PSRR ？
+        page_numbers: [17]
+      - doc_id: COSH_IP_SIGNAL_INTEGRITY_TRAINING_2009
+        section_contains: 信号完整性的一些概念
+        slide_numbers: [31]
+    expected_key_facts:
+      - LDO PSRR 表示输入交流扰动在特定频率被衰减到输出的程度，且随频率变化。
+      - 培训资料把电源噪声列为周期性抖动的潜在来源之一。
+
+  - question_id: V2_CROSS_04
+    question: 高压电源板评审时，LDO 热设计和绝缘电气间隙分别要依据哪些条件判断？
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [power_management, electrical_safety]
+    topics: [ldo, creepage_clearance, clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 第 3 章： 热性能
+        page_numbers: [8]
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 确定绝缘系统中的电气间隙以确保用户安全
+        page_numbers: [7]
+    expected_key_facts:
+      - LDO 热设计要结合 VIN−VOUT、负载功耗、封装热阻和可用散热条件。
+      - 电气间隙要结合脉冲电压、污染等级、终端标准和海拔，超过 2,000 m 需乘海拔系数。
+
+  - question_id: V2_CROSS_05
+    question: 用 LDO 给 DDR2 供电时，为什么既要保证 LDO 不进入压降，又要遵守 DDR2 电源/时钟稳定后的初始化等待？
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [memory, power_management]
+    topics: [ddr2, ldo, power_sequencing]
+    memory_type: DDR2
+    answerable: true
+    expected_sources:
+      - doc_id: TI_ZHCY093_LDO_BASICS_ZH
+        section_contains: 什么是压降？
+        page_numbers: [3]
+      - doc_id: JEDEC_JESD79_2C_DDR2_SDRAM_2006
+        section_contains: 2.3.1 Power-up and initialization sequence
+        page_numbers: [23]
+    expected_key_facts:
+      - LDO 输入余量不足会退出正常稳压，使 DDR2 电源轨不能保证规定稳态。
+      - DDR2 要求电源和时钟稳定后至少等待 200 μs，再用 NOP/Deselect 并拉高 CKE。
+
+  - question_id: V2_CROSS_06
+    question: 同一块 PCB 上高速差分线靠近高压区时，参考平面连续性与安规距离分别解决什么风险？
+    language: zh-CN
+    category: cross_domain_synthesis
+    domains: [high_speed_interface, electrical_safety]
+    topics: [high_speed_layout, creepage_clearance]
+    answerable: true
+    expected_sources:
+      - doc_id: TI_SPRAAR7J_HIGH_SPEED_INTERFACE_LAYOUT_REV_J
+        section_contains: 2.4 High-Speed Signal Reference Planes
+        page_numbers: [6]
+      - doc_id: TI_ZHCP238_CREEPAGE_CLEARANCE_2024
+        section_contains: 爬电距离和电气间隙
+        page_numbers: [2]
+    expected_key_facts:
+      - 连续接地参考面为高速回流提供低阻路径，避免分割造成辐射、串扰、延迟和幅度劣化。
+      - 爬电距离防止沿绝缘表面失效，电气间隙防止瞬态电压在空气中电离或拉弧。
+
+  - question_id: V2_AMBIG_01
+    question: 这块板的间距应该留多少？
+    language: zh-CN
+    category: ambiguity_route
+    expected_route_status: clarification_required
+    answerable: false
+    refusal_reason: “间距”可能指高速线间距、爬电距离、电气间隙或其他布局约束，必须先澄清领域和条件。
+
+  - question_id: V2_AMBIG_02
+    question: 这个问题应该怎么布线才正确？
+    language: zh-CN
+    category: ambiguity_route
+    expected_route_status: clarification_required
+    answerable: false
+    refusal_reason: 未说明接口、信号、电源或安全领域，不能选择唯一检索范围，应先要求用户补充对象。
+
+  - question_id: V2_AMBIG_03
+    question: 这个参数超限会有什么后果？
+    language: zh-CN
+    category: ambiguity_route
+    expected_route_status: clarification_required
+    answerable: false
+    refusal_reason: 未给出参数名称、器件或所属领域，必须先澄清再检索。
+
+  - question_id: V2_AMBIG_04
+    question: 这个设计是否合格？
+    language: zh-CN
+    category: ambiguity_route
+    expected_route_status: clarification_required
+    answerable: false
+    refusal_reason: 未给出设计对象、领域、适用标准和验证数据，必须先澄清范围，且不得直接调用回答 API。

@@ -1,0 +1,451 @@
+# DDR RAG V1 baseline. This file is ground truth, not a source of engineering rules.
+# Every answerable expected_sources entry must be retrieved by a later eval run.
+schema_version: 1
+dataset_id: ddr_rag_v1
+description: >-
+  Forty locally anchored DDR RAG evaluation cases: thirty answerable questions and
+  ten required-refusal questions. Answerable questions span Rockchip RK3568, TI
+  AM62x/AM62Lx and NXP i.MX 8M Plus source guides.
+questions:
+  - question_id: DDR_ANS_RK3568_01
+    question: RK3568 DDR4 CLK 差分对的目标阻抗是多少？
+    language: zh-CN
+    category: impedance
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["差分阻抗 100 Ω ±10%"]
+
+  - question_id: DDR_ANS_RK3568_02
+    question: What length-match limit applies between CLKP and CLKN for RK3568 DDR4?
+    language: en
+    category: routing_limit
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["CLKP/CLKN length mismatch < 12 mil"]
+
+  - question_id: DDR_ANS_RK3568_03
+    question: RK3568 DDR4 中 CLK 与 DQS 的等长限制是多少？
+    language: zh-CN
+    category: length_matching
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["CLK 与 DQS 的长度差 < 1500 mil"]
+
+  - question_id: DDR_ANS_RK3568_04
+    question: For RK3568 DDR4 clock routing, what is the maximum L2a-to-L2b mismatch?
+    language: en
+    category: routing_limit
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["L2a-to-L2b mismatch ≤ 20 mil"]
+
+  - question_id: DDR_ANS_RK3568_05
+    question: RK3568 DDR4 的 CLK 与 CSn/CKE/ODT 信号之间长度应如何控制？
+    language: zh-CN
+    category: length_matching
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["CLK 与 CSn/CKE/ODT 的长度差 < 30 mil"]
+
+  - question_id: DDR_ANS_RK3568_06
+    question: What clearance is required between RK3568 DDR4 CLK and other signals?
+    language: en
+    category: clearance
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+    expected_key_facts: ["CLK-to-other-signal spacing ≥ 3 times trace width"]
+
+  - question_id: DDR_ANS_RK3568_07
+    question: RK3568 的 DDR4+ECC CSn/CKE/ODT 信号中，M 段与非 M 段阻抗分别是多少？
+    language: zh-CN
+    category: impedance
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4+ECC CSn/CKE/ODT
+        page_numbers: [169]
+    expected_key_facts: ["M 段 43 Ω ±10%", "非 M 段 50 Ω ±10%"]
+
+  - question_id: DDR_ANS_RK3568_08
+    question: What is the maximum CLK-to-CSn/CKE/ODT length difference for RK3568 DDR4+ECC?
+    language: en
+    category: length_matching
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4+ECC CSn/CKE/ODT
+        page_numbers: [169]
+    expected_key_facts: ["CLK-to-CSn/CKE/ODT length difference < 60 mil"]
+
+  - question_id: DDR_ANS_RK3568_09
+    question: RK3568 DDR4+ECC 中，除 CSn/CKE/ODT 外的 CA/CMD 与 CLK 等长限制是什么？
+    language: zh-CN
+    category: length_matching
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4+ECC 除CSn/CKE/ODT
+        page_numbers: [170]
+    expected_key_facts: ["CA/CMD 与 CLK 的长度差 < 600 mil"]
+
+  - question_id: DDR_ANS_RK3568_10
+    question: Can the RK3568 DDR4 CLK-to-DQS 1500 mil limit be applied directly to LPDDR4?
+    language: en
+    category: comparison
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: DDR4 CLK
+        page_numbers: [165, 166]
+      - doc_id: ROCKCHIP_RK3568_HARDWARE_DESIGN_GUIDE_CN_V1_2
+        section_contains: LPDDR4 PCB
+        page_numbers: [170]
+    expected_key_facts: ["DDR4 CLK-to-DQS < 1500 mil", "LPDDR4 DQS-to-CLK < 1200 mil", "不同 DDR 类型的规则不可直接混用"]
+
+  - question_id: DDR_ANS_TI_01
+    question: Which JEDEC DDR4 device widths are generally compatible with the AM62x/AM62Lx DDR4 interface?
+    language: en
+    category: compatibility
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.4 Compatible JEDEC DDR4 Devices
+        page_numbers: [12]
+    expected_key_facts: ["JEDEC-compliant x8 or x16 DDR4 SDRAM devices"]
+
+  - question_id: DDR_ANS_TI_02
+    question: TI AM62x DDR4 的 Keepout Region 对非 DDR4 信号有什么要求？
+    language: zh-CN
+    category: routing_scope
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.6 DDR4 Keepout Region
+        page_numbers: [13]
+    expected_key_facts: ["非 DDR4 信号不得在 DDR4 keepout 区域走线"]
+
+  - question_id: DDR_ANS_TI_03
+    question: Why does the TI AM62x guide recommend DBI for DDR4?
+    language: en
+    category: signal_integrity
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.7 DBI
+        page_numbers: [13]
+    expected_key_facts: ["reduces supply/ground noise", "improves the data eye"]
+
+  - question_id: DDR_ANS_TI_04
+    question: TI AM62x DDR4 的 VPP 在刷新期间需要具备怎样的供电电流能力？
+    language: zh-CN
+    category: power
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.8 VPP
+        page_numbers: [13]
+    expected_key_facts: ["刷新期间平均电流为 10–20 mA", "刷新期间短时突发电流最高为 60 mA", "活动和待机平均电流小于 5 mA"]
+
+  - question_id: DDR_ANS_TI_05
+    question: What is the purpose of DDR4 net classes in the TI AM62x layout guide?
+    language: en
+    category: routing_scope
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.9 Net Classes
+        page_numbers: [13]
+    expected_key_facts: ["groups signals with the same routing requirements"]
+
+  - question_id: DDR_ANS_TI_06
+    question: TI AM62x 的多颗 DDR4 存储器设计中，哪些网络类别需要终端？
+    language: zh-CN
+    category: termination
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.10 DDR4 Signal Termination
+        page_numbers: [14]
+    expected_key_facts: ["多颗存储器时 CK 和 ADDR_CTRL 网络需要终端"]
+
+  - question_id: DDR_ANS_TI_07
+    question: What are VREFDQ and VREFCA used for in the TI DDR4 guidance?
+    language: en
+    category: reference_voltage
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.11 VREF Routing
+        page_numbers: [14]
+    expected_key_facts: ["VREFDQ is for data-group reads and writes", "VREFCA is for SDRAM command and address inputs"]
+
+  - question_id: DDR_ANS_TI_08
+    question: TI AM62x DDR4 中 VTT 的标称电压与用途是什么？
+    language: zh-CN
+    category: power
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.12 VTT
+        page_numbers: [14]
+    expected_key_facts: ["VTT 标称值为 DDR4 供电电压的 50%", "为 ADDR_CTRL Thevenin 终端提供灌拉电流"]
+
+  - question_id: DDR_ANS_TI_09
+    question: What topology does TI require for DDR4 data lines on AM62x regardless of device count?
+    language: en
+    category: topology
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: 2.15 Data Group Topologies
+        page_numbers: [17, 18]
+    expected_key_facts: ["data-line topology is point-to-point"]
+
+  - question_id: DDR_ANS_TI_10
+    question: TI AM62x DDR4 的 DQ/DQS/DM 等长是否要求跨 Byte Lane 匹配？
+    language: zh-CN
+    category: length_matching
+    memory_type: DDR4
+    answerable: true
+    expected_sources:
+      - doc_id: TI_AM62X_AM62LX_DDR_LAYOUT_GUIDE_SPRAD06C
+        section_contains: Note
+        page_numbers: [20, 21]
+    expected_key_facts: ["仅在每个 byte 内等长", "不要求也不建议跨 byte 等长"]
+
+  - question_id: DDR_ANS_NXP_01
+    question: i.MX 8M Plus 可以与哪些 DDR 类型配合使用？
+    language: zh-CN
+    category: compatibility
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.1 DDR connection information
+        page_numbers: [13]
+    expected_key_facts: ["LPDDR4", "DDR4"]
+
+  - question_id: DDR_ANS_NXP_02
+    question: Why does NXP recommend time-delay rather than length matching for i.MX 8M Plus LPDDR4-4000?
+    language: en
+    category: length_matching
+    memory_type: LPDDR4
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.2 LPDDR4-4000 design recommendations
+        page_numbers: [15]
+    expected_key_facts: ["delay matching includes PCB trace delay and IC package delay"]
+
+  - question_id: DDR_ANS_NXP_03
+    question: i.MX 8M Plus LPDDR4-4000 进行延迟匹配时，过孔延迟是否需要计入？
+    language: zh-CN
+    category: length_matching
+    memory_type: LPDDR4
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.2 LPDDR4-4000 design recommendations
+        page_numbers: [15]
+    expected_key_facts: ["过孔转换的延迟必须计入总延迟"]
+
+  - question_id: DDR_ANS_NXP_04
+    question: What maximum PCB-plus-package propagation delay is listed for CK_t/CK_c in NXP LPDDR4-4000 routing guidance?
+    language: en
+    category: routing_limit
+    memory_type: LPDDR4
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.2.1
+        page_numbers: [15]
+    expected_key_facts: ["CK_t/CK_c PCB plus package propagation delay maximum 200 ps"]
+
+  - question_id: DDR_ANS_NXP_05
+    question: NXP 的 LPDDR4-4000 建议中，DQS 真互补信号的匹配要求是什么？
+    language: zh-CN
+    category: length_matching
+    memory_type: LPDDR4
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.2.1
+        page_numbers: [15]
+    expected_key_facts: ["DQS 真互补信号在 1 ps 以内匹配"]
+
+  - question_id: DDR_ANS_NXP_06
+    question: Which elements are included in the i.MX 8M Plus DDR signal-integrity simulation architecture?
+    language: en
+    category: simulation
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.3 i.MX 8M Plus DDR SI simulation guide
+        page_numbers: [19]
+    expected_key_facts: ["DDR controller", "PCB", "DRAM device"]
+
+  - question_id: DDR_ANS_NXP_07
+    question: i.MX 8M Plus LPDDR4-4000 的 DQ 写眼图宽度目标是多少？
+    language: zh-CN
+    category: simulation
+    memory_type: LPDDR4
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: "For LPDDR4-4000:"
+        page_numbers: [19]
+    expected_key_facts: ["VREF ±60 mV 时 DQ Write 眼图宽度应大于 187 ps"]
+
+  - question_id: DDR_ANS_NXP_08
+    question: What package effect must be included when matching i.MX 8M Plus LPDDR4 or DDR4 routes?
+    language: en
+    category: length_matching
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.4 i.MX 8M Plus DDR package delay
+        page_numbers: [19, 20]
+    expected_key_facts: ["include substrate routing inside the i.MX 8M Plus package"]
+
+  - question_id: DDR_ANS_NXP_09
+    question: i.MX 8M Plus 已针对哪些 JEDEC DDR 标准进行设计和测试？
+    language: zh-CN
+    category: standards
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: 3.3.5 JEDEC specification compliance
+        page_numbers: [21]
+    expected_key_facts: ["JESD209-4A LPDDR4", "JESD79-4A DDR4"]
+
+  - question_id: DDR_ANS_NXP_10
+    question: What revision of the i.MX 8M Plus Hardware Developer's Guide is in this knowledge base?
+    language: en
+    category: document_metadata
+    memory_type: null
+    answerable: true
+    expected_sources:
+      - doc_id: NXP_IMX8MP_HARDWARE_DEVELOPERS_GUIDE_REV1
+        section_contains: Document information
+        page_numbers: [1]
+    expected_key_facts: ["Rev. 1"]
+
+  - question_id: DDR_REFUSE_01
+    question: RK3568 的 DDR5 CK 差分阻抗要求是什么？
+    language: zh-CN
+    category: refusal_scope
+    memory_type: DDR5
+    answerable: false
+    refusal_reason: 当前知识库没有 DDR5 设计资料。
+
+  - question_id: DDR_REFUSE_02
+    question: What LPDDR5 routing-delay limits does the i.MX 8M Plus guide specify?
+    language: en
+    category: refusal_scope
+    memory_type: LPDDR5
+    answerable: false
+    refusal_reason: 当前 i.MX 8M Plus 资料只覆盖 DDR4 和 LPDDR4，不覆盖 LPDDR5。
+
+  - question_id: DDR_REFUSE_03
+    question: TI AM62x DDR4 布线规则能否直接作为 RK3588 的板级约束？
+    language: zh-CN
+    category: refusal_scope
+    memory_type: DDR4
+    answerable: false
+    refusal_reason: 当前资料没有 RK3588 指南，不能把 AM62x 专用规则直接迁移到另一颗 SoC。
+
+  - question_id: DDR_REFUSE_04
+    question: What DDR4 trace length target does this knowledge base mandate for Micron MT40A devices on i.MX 8M Plus?
+    language: en
+    category: refusal_scope
+    memory_type: DDR4
+    answerable: false
+    refusal_reason: 当前资料没有指定 Micron MT40A 器件的专用设计约束。
+
+  - question_id: DDR_REFUSE_05
+    question: 当前资料是否规定 AM62x LPDDR4 必须使用 12 层 PCB 叠层？
+    language: zh-CN
+    category: refusal_scope
+    memory_type: LPDDR4
+    answerable: false
+    refusal_reason: 当前资料提供示例叠层，未建立必须使用 12 层板的通用结论。
+
+  - question_id: DDR_REFUSE_06
+    question: Provide the complete JEDEC DDR5 eye-mask table from the local knowledge base.
+    language: en
+    category: refusal_scope
+    memory_type: DDR5
+    answerable: false
+    refusal_reason: 当前知识库没有 JEDEC DDR5 规范或 DDR5 眼图掩码表。
+
+  - question_id: DDR_REFUSE_07
+    question: 当前知识库是否包含已经批准的 PCB 工厂 3 mil/3 mil 制造能力？
+    language: zh-CN
+    category: refusal_scope
+    memory_type: null
+    answerable: false
+    refusal_reason: 当前知识库没有获批准的 PCB 工厂能力或工艺文件。
+
+  - question_id: DDR_REFUSE_08
+    question: Can the local DDR documents guarantee that my completed board will pass SI simulation?
+    language: en
+    category: refusal_scope
+    memory_type: null
+    answerable: false
+    refusal_reason: 文档只能提供设计指导，无法替代针对实际板、器件与叠层的仿真和工程签核。
+
+  - question_id: DDR_REFUSE_09
+    question: TI AM62x 支持双颗 LPDDR5X 的推荐拓扑是什么？
+    language: zh-CN
+    category: refusal_scope
+    memory_type: LPDDR5X
+    answerable: false
+    refusal_reason: 当前 TI 文档覆盖 DDR4 和 LPDDR4，不覆盖 LPDDR5X。
+
+  - question_id: DDR_REFUSE_10
+    question: What is the current market price of DDR4 SDRAM according to this knowledge base?
+    language: en
+    category: refusal_scope
+    memory_type: DDR4
+    answerable: false
+    refusal_reason: 当前知识库不含实时市场价格信息。
